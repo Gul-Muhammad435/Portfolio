@@ -1,0 +1,367 @@
+<!--
+  Personal Portfolio — Single-file HTML + CSS
+  Save this as `index.html` and open in VS Code. Live Preview or open in browser.
+  Instructions:
+   - Replace placeholder text, images (SVGs) and links with your own content.
+   - To add projects, duplicate the <article class="project"> block.
+   - The CSS includes a light/dark toggle and responsive layout.
+   - This file is intentionally self-contained (no build tools required).
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gul — Personal Portfolio</title>
+  <meta name="description" content="Portfolio of Gul — Computer Systems Engineering student &amp; developer">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #94a3b8;
+      --accent: #4f46e5;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 14px;
+      --max-width: 1100px;
+      color-scheme: dark;
+    }
+    html,body{height:100%;}
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(79,70,229,0.08), transparent),
+                  linear-gradient(0deg, var(--bg), #071024 120%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:40px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:20px;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:20px;
+      padding:28px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    header{
+      display:flex;
+      gap:20px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      display:flex;align-items:center;gap:14px;
+    }
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:800;color:white;font-size:20px;box-shadow:0 6px 20px rgba(79,70,229,0.18);
+    }
+    h1.name{font-size:18px;margin:0}
+    p.role{margin:0;color:var(--muted);font-size:13px}
+
+    nav{display:flex;gap:12px;align-items:center}
+    .btn{
+      padding:10px 14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:600;font-size:13px;color:inherit;transition:all .18s ease;
+    }
+    .btn:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(2,6,23,0.5)}
+    .cta{background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;border:0}
+
+    main{display:grid;grid-template-columns:1fr 380px;gap:24px}
+
+    /* Left column */
+    .card{
+      background:linear-gradient(180deg,var(--card),rgba(255,255,255,0.01));padding:22px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .hero{
+      display:flex;gap:18px;align-items:start
+    }
+    .avatar{width:120px;height:120px;border-radius:14px;flex:0 0 120px;background:linear-gradient(180deg,#0b1220,rgba(255,255,255,0.02));display:grid;place-items:center;border:1px solid rgba(255,255,255,0.04)}
+    .avatar svg{width:72px;height:72px;opacity:0.95}
+    .intro h2{margin:0 0 8px 0;font-size:20px}
+    .intro p{margin:0;color:var(--muted)}
+
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .badge{background:var(--glass);padding:6px 10px;border-radius:999px;font-weight:600;font-size:12px;color:var(--muted)}
+
+    .about{margin-top:18px;color:var(--muted)}
+    .about p{margin:0}
+
+    /* Projects */
+    .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    .project{background:var(--glass-2);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);display:flex;gap:12px;align-items:center}
+    .project .meta{flex:1}
+    .project h3{margin:0;font-size:15px}
+    .project p{margin:6px 0 0 0;font-size:13px;color:var(--muted)}
+    .tech{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+    .tech span{font-size:11px;padding:6px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--muted)}
+
+    /* Right sidebar */
+    aside{display:flex;flex-direction:column;gap:12px}
+    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .skill{padding:10px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);font-weight:600}
+    .progress{height:8px;background:rgba(255,255,255,0.03);border-radius:999px;margin-top:8px;overflow:hidden}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#06b6d4)}
+
+    .contact-card{display:flex;flex-direction:column;gap:10px}
+    .contact-card a{display:inline-block;text-decoration:none;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:var(--glass);color:inherit;font-weight:700;text-align:center}
+
+    /* Experience / Education */
+    .timeline{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .timeline-item{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.02)}
+    .timeline-item h4{margin:0;font-size:14px}
+    .timeline-item p{margin:6px 0 0 0;color:var(--muted);font-size:13px}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* Responsive */
+    @media (max-width:1024px){main{grid-template-columns:1fr 320px}}
+    @media (max-width:880px){
+      body{padding:20px}
+      main{grid-template-columns:1fr}
+      .projects-grid{grid-template-columns:1fr}
+      aside{order:2}
+    }
+
+    /* Small utilities */
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+
+    /* Simple anim */
+    .float{animation:float 6s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+
+    /* form */
+    .form-row{display:flex;gap:8px}
+    .form-row input, .form-row textarea, .contact-form input, .contact-form textarea{width:100%;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:inherit}
+    .contact-form textarea{min-height:120px;resize:vertical}
+
+    /* small screens header */
+    .header-right{display:flex;gap:8px}
+
+    /* tiny tweaks for print/resume */
+    @media print{body{background:white;color:black} .container{box-shadow:none;border:0} .btn{display:none}}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">GM</div>
+        <div>
+          <h1 class="name">Gul Muhammad</h1>
+          <p class="role">Computer Systems Engineering • Developer • Student</p>
+        </div>
+      </div>
+
+      <nav class="header-right">
+        <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
+        <button class="btn" onclick="window.print()">Print / Resume</button>
+        <a class="btn cta" href="#projects">See Projects</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <div class="card hero">
+          <div class="avatar float" aria-hidden="true">
+            <!-- simple SVG avatar placeholder -->
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="64" height="64" rx="12" fill="white" fill-opacity="0.06"/>
+              <circle cx="32" cy="24" r="10" fill="white" fill-opacity="0.12"/>
+              <path d="M10 52c3-8 12-12 22-12s19 4 22 12" stroke="white" stroke-opacity="0.12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="intro">
+            <h2>Hello — I'm Gul.</h2>
+            <p class="muted">Computer Systems Engineering student building software and low-level systems. I design efficient solutions, write clean code, and enjoy learning web development and embedded systems.</p>
+
+            <div class="badges">
+              <div class="badge">C++</div>
+              <div class="badge">HTML & CSS</div>
+              <div class="badge">Java</div>
+              <div class="badge">Embedded Systems</div>
+              <div class="badge">Git</div>
+            </div>
+
+            <div class="about">
+              <p>I'm available for freelancing — I like projects that involve web front-end, system programming, or small embedded projects. Based in Pakistan.</p>
+            </div>
+
+            <div style="margin-top:14px;display:flex;gap:8px">
+              <a class="btn" href="#projects">View projects</a>
+              <a class="btn" href="#contact">Hire me</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <h3 style="margin:0 0 8px 0">Featured Projects</h3>
+          <div id="projects" class="projects-grid" aria-live="polite">
+
+            <article class="project" tabindex="0">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" fill="white" fill-opacity="0.03"/><path d="M3 7h18" stroke="white" stroke-opacity="0.06" stroke-width="1.2"/></svg>
+              <div class="meta">
+                <h3>Calculator App (C++)</h3>
+                <p class="muted">A console-based calculator with trigonometric functions & file logging — used in labs & assignments.</p>
+                <div class="tech"><span>Console</span><span>C++</span><span>File I/O</span></div>
+              </div>
+            </article>
+
+            <article class="project" tabindex="0">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="3" width="20" height="18" rx="3" fill="white" fill-opacity="0.03"/></svg>
+              <div class="meta">
+                <h3>Portfolio Website (HTML/CSS)</h3>
+                <p class="muted">This single-file portfolio, responsive and printable. Built to show projects and contact info.</p>
+                <div class="tech"><span>HTML</span><span>CSS</span><span>Responsive</span></div>
+              </div>
+            </article>
+
+            <article class="project" tabindex="0">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect width="24" height="24" fill="white" fill-opacity="0.02" rx="4"></rect></svg>
+              <div class="meta">
+                <h3>Matrix Eigen Solver</h3>
+                <p class="muted">Program to compute characteristic equations, eigenvalues & eigenspaces for matrices — used in linear algebra tasks.</p>
+                <div class="tech"><span>Math</span><span>C++</span><span>Linear Algebra</span></div>
+              </div>
+            </article>
+
+            <article class="project" tabindex="0">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="3" width="20" height="18" rx="3" fill="white" fill-opacity="0.03"/></svg>
+              <div class="meta">
+                <h3>NetBeans Java Labs</h3>
+                <p class="muted">Java programs for lab assignments: command line args, Scanner, object-oriented tasks, and simple GUIs.</p>
+                <div class="tech"><span>Java</span><span>OOP</span><span>NetBeans</span></div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <h3 style="margin:0 0 8px 0">Experience & Education</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <h4>Computer Systems Engineering — Bachelor</h4>
+              <p class="muted">Studying topics including microcontrollers, operating systems, digital logic and programming. (Ongoing)</p>
+            </div>
+            <div class="timeline-item">
+              <h4>Freelance & College Projects</h4>
+              <p class="muted">Small apps, calculators, assignments for classmates and lab solutions.</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <aside>
+        <div class="card">
+          <h3 style="margin:0 0 8px 0">Skills</h3>
+          <div class="skills">
+            <div>
+              <div class="skill">C++</div>
+              <div class="progress" aria-hidden="true" style="margin-top:8px"><i style="width:88%"></i></div>
+            </div>
+            <div>
+              <div class="skill">HTML & CSS</div>
+              <div class="progress" aria-hidden="true" style="margin-top:8px"><i style="width:92%"></i></div>
+            </div>
+            <div>
+              <div class="skill">Java</div>
+              <div class="progress" aria-hidden="true" style="margin-top:8px"><i style="width:76%"></i></div>
+            </div>
+            <div>
+              <div class="skill">Git & CLI</div>
+              <div class="progress" aria-hidden="true" style="margin-top:8px"><i style="width:80%"></i></div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <h4 style="margin:0 0 8px 0">Contact</h4>
+            <div class="contact-card">
+              <a href="mailto:your.email@example.com">your.email@example.com</a>
+              <a href="#contact">Send a message</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 8px 0">Downloads</h3>
+          <p class="muted" style="margin-bottom:8px">Resume & Resources</p>
+          <a class="btn" href="#" onclick="alert('Replace this link with your PDF resume file or a cloud URL')">Download Resume (PDF)</a>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 8px 0">Availability</h3>
+          <p class="muted">Open for projects & part-time roles. Prefer short-term contracts and college collaborations.</p>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <a class="btn" href="#contact">Hire</a>
+            <a class="btn" href="#projects">Work</a>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
+    <section id="contact" style="margin-top:18px">
+      <div class="card contact-form">
+        <h3 style="margin:0 0 8px 0">Get in touch</h3>
+        <p class="muted" style="margin:0 0 10px 0">Send a message — I'll respond to serious inquiries.</p>
+        <form onsubmit="event.preventDefault();alert('This is a demo form. Replace with your server or Formspree endpoint.');" aria-label="Contact form">
+          <div class="form-row">
+            <input required type="text" name="name" placeholder="Your name">
+            <input required type="email" name="email" placeholder="Your email">
+          </div>
+          <div style="margin-top:8px">
+            <input required type="text" name="subject" placeholder="Subject">
+          </div>
+          <div style="margin-top:8px">
+            <textarea name="message" placeholder="Message"></textarea>
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn cta" type="submit">Send Message</button>
+            <button class="btn" type="reset">Reset</button>
+          </div>
+        </form>
+      </div>
+
+      <footer>
+        <p>Made with ❤️ — Customize this file in VS Code. © <span id="year"></span> Gul Muhammad</p>
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    // small enhancements
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // keyboard accessible focus behavior for project cards
+    document.querySelectorAll('.project').forEach(card => {
+      card.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') alert(card.querySelector('h3').innerText + ' — open details (demo)');
+      });
+    });
+  </script>
+</body>
+</html>
